@@ -1,0 +1,28 @@
+{
+  "name": "fcg-webuntis-backend-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjks-us/fcg-webuntis-backend-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rjks-us/fcg-webuntis-backend-api/issues"
+  },
+  "homepage": "https://github.com/rjks-us/fcg-webuntis-backend-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "webuntis": "^1.15.0"
+  }
+}
