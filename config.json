@@ -1,0 +1,10 @@
+{
+    "api": {
+        "SCHOOL": "FCG-Duesseldorf",
+        "HOST": "ajax.webuntis.com"
+    },
+    "port": 8080,
+    "keys": {
+        "JWT": "PRIVATE-JWT-KEY"
+    }
+}
