@@ -5,7 +5,8 @@ const path = require('path');
 
 const morgan = require('morgan');
 
-const config = require('./config.json')
+const config = require('./config.json');
+const untis = require('./untis');
 const app = express();
 
 app.use((err, req, res, next) => {
@@ -32,5 +33,10 @@ app.use(morgan('combined', { stream: fs.createWriteStream(path.join(__dirname, '
 init().then(() => {
     app.listen(config.port, () => {
         console.log(`[INFO] Webserver started on http://localhost://$${config.port}`);
+
+        untis.login().then(() => {
+            console.log('[INFO] Connected to WebUntis Backend API');
+            //untis.update(); //Starts requesting intervall
+        }).catch(err => console.error(err));
     })
 })
