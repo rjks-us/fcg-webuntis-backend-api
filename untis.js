@@ -4,7 +4,7 @@ const { connect } = require('./api/application');
 
 const config = require('./config.json');
 
-var authenticated = new WebUntisLib(config.api.SCHOOL, "KratzRobert", "P@ssword1", config.api.HOST);
+var authenticated = new WebUntisLib(config.api.SCHOOL, "KratzRobert", "", config.api.HOST);
 
 /**
  * @description Webuntis instance connecting to Untis API
