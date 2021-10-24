@@ -2,7 +2,7 @@
 
 ## API Endpoints
 
-This applicatioon is the backend for the mobile FCG-Timetable-App
+This application is the backend for the mobile FCG-Timetable-App
 
 ## Response Format
 
