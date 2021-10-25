@@ -52,6 +52,6 @@ init().then(() => {
         app.listen(config.port, () => {
             console.log(`[INFO] Webserver started on http://localhost:${config.port}/`);
         })
-        require('./untis/cacher').update();
+        require('./untlis/cacher').update();
     }).catch(err => console.error(err));
 });
