@@ -1,7 +1,5 @@
 # fcg-webuntis-backend-api
 
-## API Endpoints
-
 This application is the backend for the mobile FCG-Timetable-App
 
 ## Response Format
@@ -16,6 +14,8 @@ All requests must be in the `application/json` format
     "data": []
 }
 ```
+
+## API Endpoints
 
 ### Get the current Verison
 
