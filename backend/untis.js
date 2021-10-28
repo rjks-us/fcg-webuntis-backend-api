@@ -227,13 +227,13 @@ const getAllSubjectsOrdered = async (id, start, end) => {
  * @returns JSON
  */
 const getToday = async () => {
-    const holidays = await this.holidays();
+    const days = await holidays();
 
-    for (let i = 0; i < holidays.length; i++) {
-        const day = holidays[i];
+    for (let i = 0; i < days.length; i++) {
+        const day = days[i];
         if(chechDateIsInRage(`${day.start.month}/${day.start.day}/${day.start.year}`, `${day.end.month}/${day.end.day}/${day.end.year}`)) return day;
     }
-    return {};
+    return [];
 }
 
 /**
@@ -340,13 +340,9 @@ const formatSubjectObject = async (element) => {
  * @returns Boolean
  */
 const chechDateIsInRage = (start, end) => {
-    var fDate, lDate, cDate;
+    var fDate = Date.parse(start), lDate = Date.parse(end), cDate = Date.parse(new Date()), now = new Date(), current = `${now.getMonth()+1}/${now.getDate()}/${now.getFullYear()}`;
 
-    fDate = Date.parse(start);
-    lDate = Date.parse(end);
-    cDate = Date.parse(new Date());
-
-    if((cDate <= lDate && cDate >= fDate)) return true;
+    if((cDate <= lDate && cDate >= fDate) || start === current || end === current) return true;
     return false;
 }
 
@@ -402,6 +398,7 @@ module.exports = {
     login: login,
     validate: validate,
     classList: classList,
+    getToday: getToday,
     holidays: holidays,
     getTimeTable: getTimeTable,
     getAllSubjects: getAllSubjects,

@@ -10,6 +10,11 @@ app.get('/classes', async (req, res) => {
     res.status(200).json(result(200, `List of all ${classes.length} active classes`, classes));
 })
 
+app.get('/today', async (req, res) => {
+    const today = await utils.getToday();
+    res.status(200).json(result(200, `List of todays activities`, today));
+})
+
 app.get('/holidays', async (req, res) => {
     const classes = await utils.holidays();
     res.status(200).json(result(200, `List of all ${classes.length} upcoming holidays`, classes));
