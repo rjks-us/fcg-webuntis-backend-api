@@ -60,7 +60,7 @@ class Token {
      */
     setType = (type) => {
         if(type === 'R') this.token = {type: 'R', iat: 60 * 60 * 24 * 180}; //exp after 180 days of inactivity
-        else this.token = {type: 'T', iat: 10}; //exp after 24h of use
+        else this.token = {type: 'T', iat: 60 * 60 * 24}; //exp after 24h of use
 
         return this;
     }
