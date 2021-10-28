@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 const config = require('./config.json');
 const untis = require('./untis');
+const db = require('./db/connector')
 
 const {result} = require('./structure');
 
@@ -30,7 +31,7 @@ app.use('/', require('./api/application'));
  * @description Executes the entry point of application
  */
 const init = async () => {
-    try {await fs.promises.access('logs');} catch (error) {await fs.promises.mkdir('logs');}
+    try {await fs.promises.access(__dirname + '/logs');} catch (error) {await fs.promises.mkdir(__dirname + '/logs');}
 
     fs.writeFile(__dirname + `/logs/${date}.log`, '', {flag: 'wx', encoding: 'utf8'}, (err) => {
         if(err) throw new Error(err);
@@ -46,12 +47,16 @@ const init = async () => {
 }
 
 init().then(() => {
+    //Untis
     untis.login().then(() => {
         console.log('[INFO] Connected to WebUntis Backend API');
-        //Webserver starts when connected to WebUntis API
-        app.listen(config.port, () => {
-            console.log(`[INFO] Webserver started on http://localhost:${config.port}/`);
-        })
-        if(config.workers.notification) require('./untlis/cacher').update();
+        //MongoDB
+        db.login().then(() => {
+            console.log('[INFO] Connected to MongoDB Cloud Database');
+            //Express
+            app.listen(config.port, () => {
+                console.log(`[INFO] Webserver started on http://localhost:${config.port}/`);
+            })
+        }).catch(err => console.error(err));
     }).catch(err => console.error(err));
 });
