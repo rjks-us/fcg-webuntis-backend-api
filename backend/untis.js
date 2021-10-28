@@ -354,6 +354,7 @@ const chechDateIsInRage = (start, end) => {
  */
 const formatUntisDate = (time) => {
     time = time + '';
+    
     return {year: time.slice(0, 4), month: time.slice(4, 6), day: time.slice(6, 8)};
 }
 
@@ -365,6 +366,7 @@ const formatUntisDate = (time) => {
  */
 const formatUntisTime = (time) => {
     time = time + '';
+
     if(time.length == 3) return {hour: time.slice(0, 1), minute: time.slice(1, 3)};
     return {hour: time.slice(0, 2), minute: time.slice(2, 4)};
 }
