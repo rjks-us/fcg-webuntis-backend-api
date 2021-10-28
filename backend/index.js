@@ -26,6 +26,10 @@ app.use((err, req, res, next) => {
 app.use('/v1', require('./api/v1/app'));
 app.use('/', require('./api/application'));
 
+app.all('/*', (req, res) => {
+    res.status(404).json(result(404, 'This page could not be found'))
+})
+
 /**
  * @async
  * @description Executes the entry point of application
