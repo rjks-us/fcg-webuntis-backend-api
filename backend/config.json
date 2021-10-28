@@ -2,9 +2,6 @@
     "port": 8080,
     "debug": true,
     "refreshrate": 60,
-    "workers": {
-        "notification": false
-    },
     "signature": {
         "author": "Made by Robert J. Kratz",
         "sponsor": "Powered by rjks.us"
@@ -13,6 +10,10 @@
         "SCHOOL": "FCG-Duesseldorf",
         "HOST": "ajax.webuntis.com",
         "USER": "KratzRobert",
+        "PASSWORD": ""
+    },
+    "mongo": {
+        "USERNAME": "root",
         "PASSWORD": ""
     },
     "keys": {
