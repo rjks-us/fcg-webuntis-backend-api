@@ -41,9 +41,10 @@ const validate = async () => {
  * @async
  */
 const refresh = async () => {
-    await logout();
-    await login();
-    console.log('[INFO] Refreshed Session to WebUntis Backend API');
+    await logout().then(async () => {
+        await login();
+        console.log('[INFO] Refreshed Session to WebUntis Backend API');
+    });
 }
 
 /**
@@ -52,7 +53,7 @@ const refresh = async () => {
  * @returns Class List JSON
  */
 const classList = async () => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
 
     const teachers = await authenticated.getTeachers(), classes = await authenticated.getClasses(), list = [];
 
@@ -75,7 +76,7 @@ const classList = async () => {
  * @returns Array<JSON>
  */
 const holidays = async () => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
 
     const holidays = await authenticated.getHolidays(), list = [];
 
@@ -94,7 +95,7 @@ const holidays = async () => {
  * @returns Array<JSON>
  */
 const getTimeTable = async (id, date) => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
 
     try {
         const timetable = await authenticated.getTimetableFor(date, id, WebUntisLib.TYPES.CLASS), list = [];
@@ -119,7 +120,7 @@ const getTimeTable = async (id, date) => {
  * @returns JSON
  */
 const getTimeGrid = async () => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
 
     const grid = await authenticated.getTimegrid(), list = [];
     const week = ["MONDAY", "TUESDAY", "WENDNESDAY", "THURSDAY", "FRIDAY"]
@@ -146,7 +147,7 @@ const getTimeGrid = async () => {
  * @returns Array
  */
 const getTimeTableWithFilter = async (id, date, filter) => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
 
     try {
         const timetable = await authenticated.getTimetableFor(date, id, WebUntisLib.TYPES.CLASS), list = [];
@@ -176,7 +177,7 @@ const getTimeTableWithFilter = async (id, date, filter) => {
  * @returns Array
  */
 const getAllSubjects = async (id, start, end) => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
     
     const timetable = await authenticated.getTimetableForRange(start, end, id, WebUntisLib.TYPES.CLASS), list = [], form = [];
 
@@ -199,7 +200,7 @@ const getAllSubjects = async (id, start, end) => {
  * @returns Array
  */
 const getAllSubjectsOrdered = async (id, start, end) => {
-    if(!validate()) await refresh();
+    if(!await validate()) await refresh();
     
     const timetable = await authenticated.getTimetableForRange(start, end, id, WebUntisLib.TYPES.CLASS), list = [], form = {};
 
@@ -228,6 +229,8 @@ const getAllSubjectsOrdered = async (id, start, end) => {
  * @returns JSON
  */
 const getToday = async () => {
+    if(!await validate()) await refresh();
+
     const days = await holidays();
 
     for (let i = 0; i < days.length; i++) {
