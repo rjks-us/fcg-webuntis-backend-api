@@ -5,6 +5,8 @@ const {result} = require('../../structure');
 
 const utils = require('../../untis');
 
+app.use('/devices', require('./device'));
+
 app.get('/classes', async (req, res) => {
     const classes = await utils.classList();
     res.status(200).json(result(200, `List of all ${classes.length} active classes`, classes));
@@ -55,7 +57,7 @@ app.get('/timetable/:class/:year/:month/:day', async (req, res) => {
 app.post('/timetable/:class/:year/:month/:day', async (req, res) => {
     if(!req.params.class || !req.body.filter || !req.body.filter instanceof Array) res.status(400).json(result(400, `Invalid Request`));
 
-    if(req.body.filter.length == 0) res.status(200).json(result(200, `List of all 0 subjects`, []));
+    if(req.body.filter.length == 0) res.status(200).json(result(200, `List of all subjects`, []));
 
     const timetable = await utils.getTimeTableWithFilter(req.params.class, new Date(req.params.month + '/' + req.params.day + '/' + req.params.year), req.body.filter);
 
