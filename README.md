@@ -2,6 +2,20 @@
 
 This application is the backend for the mobile FCG-Timetable-App
 
+## Installation
+
+1. Install all npm packages
+```bash
+$ npm install
+```
+
+2. Locate the `config.json` in `backend/config.json` and add your credentials
+
+3. Run
+```bash
+$ npm run backend
+```
+
 ## Response Format
 
 All requests must be in the `application/json` format
