@@ -581,7 +581,7 @@ $ POST /v1/update/token
     "timestamp": 1635181064311,
     "message": "Your updated your name",
     "data": {
-        "name": "name"
+        "name": "Hans Wurst"
     }
 }
 ```
