@@ -33,7 +33,7 @@ const logout = async () => {
  * @returns Boolean
  */
 const validate = async () => {
-    return (await authenticated.validateSession);
+    return (await authenticated.validateSession());
 }
 
 /**
@@ -41,6 +41,7 @@ const validate = async () => {
  * @async
  */
 const refresh = async () => {
+    await logout();
     await login();
     console.log('[INFO] Refreshed Session to WebUntis Backend API');
 }
