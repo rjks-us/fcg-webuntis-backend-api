@@ -85,7 +85,38 @@ $ GET /v1/holidays
                 "day": "24"
             }
         }
-        ...
+    ]
+}
+```
+
+### Get a list of all holidays of today
+
+```bash
+$ GET /v1/today
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635182869875,
+    "message": "List of todays activities",
+    "data": [
+        {
+            "id": 42,
+            "short": "Herbst",
+            "name": "Herbstferien",
+            "start": {
+                "year": "2021",
+                "month": "10",
+                "day": "09"
+            },
+            "end": {
+                "year": "2021",
+                "month": "10",
+                "day": "24"
+            }
+        }
     ]
 }
 ```
@@ -112,7 +143,6 @@ $ GET /v1/classes
                 "Niederau Susanne"
             ]
         }
-        ...
     ]
 }
 ```
@@ -184,7 +214,6 @@ $ GET /v1/timegrid
                     "startTime": 1655,
                     "endTime": 1740
                 }
-                ...
             ]
         }
     ]
@@ -246,7 +275,6 @@ $ GET /v1/timetable/:classid/:year/:month/:day
                 "message": "eigenverantwortliches Arbeiten"
             }
         }
-        ...
     ]
 }
 ```
@@ -314,7 +342,6 @@ $ POST /v1/timetable/:class/:year/:month/:day
                 "message": "eigenverantwortliches Arbeiten"
             }
         }
-        ...
     ]
 }
 ```
@@ -348,7 +375,6 @@ $ GET /v1/subjects/:classid
                 "firstname": " Wioletta"
             }
         }
-        ...
     ]
 }
 ```
@@ -383,8 +409,192 @@ $ GET /v1/subjectsList/:classid
                     "firstname": " Eike Juliane"
                 }
             }
-            ...
         ]
+    }
+}
+```
+
+## Authenticated user format
+
+```bash
+$ POST /v1/devices/create-device
+```
+
+#### Request Body
+```json
+{
+    "name": "Timo Werner",
+    "platform": "IOS/15.0.2",
+    "device": {
+        "model": "IPhone 11",
+        "IOS": "15.0.2",
+        "id": "37612t687xdt167854zq8118z243875zr78zwe87rztcc67t278z78cz32c87zn7843z5b"
+    },
+    "courses": [1,2,3,4],
+    "class": 242,
+    "push": "1212uwsdzu28z341b1swqtz67dct761te762t671t2671tc672t37612t687xdt167854zq87zu9hidsblifdgjaoiuzr"
+}
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Device successfully registered",
+    "data": {
+        "token": "TOKEN",
+        "refresh": "REFRESHTOKEN"
+    }
+}
+```
+
+## User Profile
+
+```bash
+$ GET /v1/devices/me
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Userprofile for Timo Werner",
+    "data": {
+        "name": "Timo Werner",
+        "courses": [1, 3, 123],
+        "iat": 1635181066761,
+        "notification": []
+    }
+}
+```
+
+## Update Courses
+
+```bash
+$ POST /v1/update/course
+```
+
+#### Request Body
+```json
+{
+    "courses": [200, 145, 123]
+}
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Your updated your profile",
+    "data": [
+        200,
+        145,
+        123
+    ]
+}
+```
+
+## Update Class
+
+```bash
+$ POST /v1/update/class
+```
+
+#### Request Body
+```json
+{
+    "class": 242
+}
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Your updated your profile",
+    "data": {
+        "class": 242
+    }
+}
+```
+
+## Update Token
+
+```bash
+$ POST /v1/update/token
+```
+
+#### Request Body
+```json
+{
+    "token": "PUSH-NOTIFICATION-TOKEN-HERE"
+}
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Your updated the push token",
+    "data": {
+        "token": "PUSH-NOTIFICATION-TOKEN-HERE"
+    }
+}
+```
+
+## Update Name
+
+```bash
+$ POST /v1/update/token
+```
+
+#### Request Body
+```json
+{
+    "name": "Hans Wurst"
+}
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Your updated your name",
+    "data": {
+        "name": "name"
+    }
+}
+```
+
+## Refresh Tokens
+
+```bash
+$ POST /v1/update/token
+```
+
+#### Request Body
+```json
+{
+    "token": "Token",
+    "refresh": "Refreshtoken"
+}
+```
+
+#### Response:
+```json
+{
+    "status": 200,
+    "timestamp": 1635181064311,
+    "message": "Your identity has been approved, a new token family was created",
+    "data": {
+        "token": "New Token",
+        "refresh": "New Refresh Token"
     }
 }
 ```
