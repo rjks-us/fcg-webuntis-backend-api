@@ -34,6 +34,11 @@ const login = async () => {
 
             _db = db.db('_devices');
 
+            _db.createCollection('admin', (err, res) => {});
+            _db.createCollection('mobile', (err, res) => {});
+            _db.createCollection('manipulizer', (err, res) => {});
+            _db.createCollection('motd', (err, res) => {});
+
             return resolve(); 
         });
     });
