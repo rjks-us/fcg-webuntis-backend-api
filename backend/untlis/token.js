@@ -74,9 +74,24 @@ class Token {
     }
 }
 
+/**
+ * Generates admin jwt token
+ * @param {String} id 
+ * @async
+ * @returns 
+ */
+const generateAdminToken = async (id) => {
+    return await jwt.sign({
+        id: id,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 1)
+    }, config.keys.JWT);
+}
+
 module.exports = {
     Token: Token,
     verifyReset: verifyReset,
     checkRequest: checkRequest,
-    generateToken: generateToken
+    generateToken: generateToken,
+    generateAdminToken: generateAdminToken
 }

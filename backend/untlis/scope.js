@@ -49,6 +49,7 @@ const hasScope = (scopes, find) => {
  * Checks if a user has a scope
  * @param {Array} scopes 
  * @param {ID} find 
+ * @deprecated
  * @returns Boolean
  */
  const hasScopePrototype = (scopes, find) => {
