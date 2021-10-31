@@ -1,7 +1,8 @@
 const WebUntisLib = require('webuntis');
 
 const config = require('./config.json');
-const manipulize = require('./untlis/manipulizer')
+const manipulize = require('./db/manipu');
+const manip = require('./untlis/manipulizer')
 
 var authenticated = new WebUntisLib(config.api.SCHOOL, config.api.USER, config.api.PASSWORD, config.api.HOST);
 
@@ -100,12 +101,12 @@ const getTimeTable = async (id, date) => {
     try {
         const timetable = await authenticated.getTimetableFor(date, id, WebUntisLib.TYPES.CLASS), list = [];
 
-        timetable.forEach(async element => {
-            var tmp = await formatTimeTableObject(element);
-            if(manipulize.isTarget(tmp.rayid)) tmp = manipulize.manipulize(tmp, manipulize.CANCELED); //<-- Do not touch
+        var changes = await manipulize.findBulkEntry({class: parseInt(id)});
 
+        for (let i = 0; i < timetable.length; i++) {
+            var tmp = await formatTimeTableObject(timetable[i], changes);
             list.push(tmp);
-        });
+        }
 
         return sort(list);
     } catch (error) {
@@ -245,7 +246,7 @@ const getToday = async () => {
  * @param {JSON} element 
  * @returns JSON
  */
-const formatTimeTableObject = async (element) => {
+const formatTimeTableObject = async (element, options) => {
     var tmp = {id: element.lsnumber, rayid: element.id, date: formatUntisDate(element.date), start: formatUntisTime(element.startTime), end: formatUntisTime(element.endTime), class: {}, teacher: {}, subject: {}, room: {}, status: {}};
 
     //Class
@@ -286,12 +287,40 @@ const formatTimeTableObject = async (element) => {
             name: cn.longname
         }
     }
+
     tmp.status = {type: "CLASS", message: element.substText};
 
     if(element.code && element.code === 'irregular') tmp.status = {type: "INFO", message: element.substText};
     if(element.code && element.code === 'cancelled') tmp.status = {type: "CANCELED", message: element.substText};
 
+    //MANIPULIZE RESULT BY REPLACING STATUS WITH OPTION STATUS
+
+    if(options) {
+        for (let i = 0; i < options.length; i++) {
+            if(options[i].rayid === tmp.rayid) {
+                tmp.status.type = formatType(options[i].status.type);
+                if(options[i].status.message) tmp.status.message = options[i].status.message;
+            }
+        }
+    }
+
     return tmp;
+}
+
+/**
+ * Generates status name by id
+ * @param {Number} type 
+ * @returns String
+ */
+const formatType = (type) => {
+    switch (type) {
+        case 1:
+            return "CANCELED"
+        case 2:
+            return "INFO"
+        default:
+            return "CLASS"
+    }
 }
 
 /**
