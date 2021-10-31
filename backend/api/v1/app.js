@@ -4,17 +4,75 @@ const app = express.Router();
 const {result} = require('../../structure');
 
 const utils = require('../../untis');
+const modt = require('../../db/motd')
 
 app.use('/devices', require('./device'));
+app.use('/admin', require('./admin'));
 
 app.get('/classes', async (req, res) => {
     const classes = await utils.classList();
+
     res.status(200).json(result(200, `List of all ${classes.length} active classes`, classes));
 })
 
 app.get('/today', async (req, res) => {
-    const today = await utils.getToday();
-    res.status(200).json(result(200, `List of todays activities`, today));
+    console.log({classes: -1, date: {day: (new Date().getDate()), month: (new Date().getMonth() + 1), year: (new Date().getFullYear())}});
+
+    const today = await utils.getToday(), motd = await modt.findBulkEntry({classes: -1}), tmp = [];
+
+    motd.forEach(messages => {
+        if(messages.date.day == (new Date().getDate()) && messages.date.month == (new Date().getMonth() + 1) && messages.date.year == (new Date().getFullYear()))
+        tmp.push({
+            id: messages._id,
+            type: messages.type,
+            message: messages.message,
+            classes: messages.classes,
+            iat: messages.iat,
+            date: messages.date
+        })
+    });
+
+    res.status(200).json(result(200, `List of todays activities`, {holidays: today, messages: tmp}));
+})
+
+app.get('/today/:year/:month/:day/', async (req, res) => {
+    if(!req.params.year || !req.params.month || !req.params.day) return res.status(400).json(result(400, 'Bad request'));
+
+    const today = await utils.getToday(), motd = await modt.findBulkEntry({classes: -1}), tmp = [];
+
+    motd.forEach(messages => {
+        if(req.params.day == messages.date.day && req.params.month == messages.date.month && req.params.year == messages.date.year)
+        tmp.push({
+            id: messages._id,
+            type: messages.type,
+            message: messages.message,
+            classes: messages.classes,
+            iat: messages.iat,
+            date: messages.date
+        })
+    });
+
+    res.status(200).json(result(200, `List of todays activities`, {holidays: today, messages: tmp}));
+})
+
+app.get('/today/:year/:month/:day/:course', async (req, res) => {
+    if(!req.params.year || !req.params.month || !req.params.day || !req.params.course) return res.status(400).json(result(400, 'Bad request'));
+
+    const today = await utils.getToday(), motd = await modt.findBulkEntry({}), tmp = [];
+
+    motd.forEach(messages => {
+        if((req.params.course == messages.classes || messages.classes == -1) && req.params.day == messages.date.day && req.params.month == messages.date.month && req.params.year == messages.date.year) 
+        tmp.push({
+            id: messages._id,
+            type: messages.type,
+            message: messages.message,
+            classes: messages.classes,
+            iat: messages.iat,
+            date: messages.date
+        })
+    });
+
+    res.status(200).json(result(200, `List of todays activities`, {holidays: today, messages: tmp}));
 })
 
 app.get('/holidays', async (req, res) => {
