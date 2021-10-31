@@ -1,7 +1,10 @@
 {
     "port": 8080,
     "debug": true,
-    "refreshrate": 60,
+    "refreshrate": 600,
+    "workers": {
+        "cacher": true
+    },
     "signature": {
         "author": "Made by Robert J. Kratz",
         "sponsor": "Powered by rjks.us"
