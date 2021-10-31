@@ -1,4 +1,6 @@
-const CLASS = {id: 0, name: 'CLASS', message: ''}, CANCELED = {id: 1, name: 'CANCELED', message: 'eigenverantwortliches Arbeiten'}, IRREGULAR = {id: 2, name: 'CANCELED', message: ''};
+const CLASS = {id: 0, name: 'CLASS', message: ''}, CANCELED = {id: 1, name: 'CANCELED', message: 'eigenverantwortliches Arbeiten'}, IRREGULAR = {id: 2, name: 'INFO', message: ''};
+
+const manipulizer = require('../db/manipu')
 
 /**
  * Manipulize a Timetable Object
@@ -8,7 +10,6 @@ const CLASS = {id: 0, name: 'CLASS', message: ''}, CANCELED = {id: 1, name: 'CAN
  * @returns JSON
  */
 const manipulize = (element, type, message) => {
-
     var msg = message || type.message;
 
     element.status.type = type.name;
@@ -17,13 +18,16 @@ const manipulize = (element, type, message) => {
     return element;
 }
 
-const isTarget = (rayid) => {
+/**
+ * Checks if timetable object is manipulated
+ * @param {Number} rayid
+ * @deprecated 
+ * @returns Boolean
+ */
+const isTarget = async (rayid) => {
+    const element = await manipulizer.findEntry({rayid: rayid});
 
-    if(rayid == 271643 || rayid == 271648) { //TODO: ADD DB SUPPORT
-        return true;
-    }
-
-    return false;
+    return (element != null);
 }
 
 module.exports = {
