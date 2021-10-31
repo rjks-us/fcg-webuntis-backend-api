@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 const config = require('./config.json');
 const untis = require('./untis');
+const admin = require('./db/admin')
 const db = require('./db/connector')
 
 const {result} = require('./structure');
@@ -55,11 +56,18 @@ init().then(() => {
     untis.login().then(() => {
         console.log('[INFO] Connected to WebUntis Backend API');
         //MongoDB
-        db.login().then(() => {
+        db.login().then(async () => {
             console.log('[INFO] Connected to MongoDB Cloud Database');
+
+            if(!await admin.findUser({name: 'root'})) {
+                await admin.createDefaultRootUser();
+                console.log('[INFO] The default root user was created');
+            }
+
             //Express
             app.listen(config.port, () => {
                 console.log(`[INFO] Webserver started on http://localhost:${config.port}/`);
+                if(config.workers.cacher) require('../notification/cacher').update();
             })
         }).catch(err => console.error(err));
     }).catch(err => console.error(err));
