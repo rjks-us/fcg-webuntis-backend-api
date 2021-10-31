@@ -192,6 +192,19 @@ const logRequest = async (id, req) => {
 }
 
 /**
+ * Retuns device object matching query
+ * @param {JSON} querry 
+ * @returns JSON
+ */
+const findUser = async (querry) => {
+    return await db().collection('mobile').findOne(querry)
+}
+
+const findBulkUser = async (querry) => {
+    return await db().collection('mobile').find(querry).toArray();
+}
+
+/**
  * Reforms the user modle to database format
  * @param {JSON} model 
  * @returns JSON
@@ -222,5 +235,7 @@ module.exports = {
     updateName: updateName,
     logRequest: logRequest,
     getProfile: getProfile,
-    deviceExists: deviceExists
+    deviceExists: deviceExists,
+    findUser: findUser,
+    findBulkUser: findBulkUser
 }
