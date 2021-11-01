@@ -19,7 +19,7 @@
             "inherit": []
         },
         {
-            "name": "CREATE_USER__PROFILES",
+            "name": "CREATE_USER_PROFILES",
             "id": 11,
             "description": "Create user profiles",
             "inherit": []
