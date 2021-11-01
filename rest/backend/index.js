@@ -17,7 +17,7 @@ const app = express();
 
 const date = Date.now();
 
-app.use(cors({credentials: true, origin: 'http://localhost:8080/'}));
+app.use(cors());
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
