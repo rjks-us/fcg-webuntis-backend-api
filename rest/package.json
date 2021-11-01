@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rjks-us/fcg-webuntis-backend-api#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
