@@ -1,17 +1,26 @@
+<a href="https://dogehouse.tv"><p align="center">
+    <img height=100 src="https://raw.githubusercontent.com/rjks-us/fcg-webuntis-backend-api/main/assets/fcg_logo_black.jpg"/>
+</p></a>
+
 # fcg-webuntis-backend-api
 
 This application is the backend for the mobile FCG-Timetable-App
 
 ## Installation
 
-1. Install all npm packages
+1. Navvigate into the `rest folder`
+```bash
+$ cd ./rest/
+```
+
+2. Install all npm packages
 ```bash
 $ npm install
 ```
 
-2. Locate the `config.json` in `backend/config.json` and add your credentials
+3. Locate the `config.json` in `backend/config.json` and add your credentials
 
-3. Run
+4. Run
 ```bash
 $ npm run backend
 ```
