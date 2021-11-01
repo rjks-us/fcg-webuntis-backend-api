@@ -2,6 +2,7 @@ const express = require('express');
 
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 
 const morgan = require('morgan');
 
@@ -15,6 +16,8 @@ const {result} = require('./structure');
 const app = express();
 
 const date = Date.now();
+
+app.use(cors({credentials: true, origin: 'http://localhost:8080/'}));
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
