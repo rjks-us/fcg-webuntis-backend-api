@@ -13,11 +13,11 @@
         "SCHOOL": "FCG-Duesseldorf",
         "HOST": "ajax.webuntis.com",
         "USER": "KratzRobert",
-        "PASSWORD": "P@ssword1"
+        "PASSWORD": ""
     },
     "mongo": {
         "USERNAME": "root",
-        "PASSWORD": "EOXsGKQeqafKCb4X"
+        "PASSWORD": ""
     },
     "keys": {
         "JWT": "PRIVATE-JWT-KEY"

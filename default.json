@@ -1,8 +1,0 @@
-{
-    "default": {
-        "name": "root",
-        "email": "root@root",
-        "scopes": [1],
-        "password": "ROOT-PASSWORD"
-    }
-}
