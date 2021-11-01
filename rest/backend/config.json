@@ -1,0 +1,31 @@
+{
+    "port": 8080,
+    "debug": true,
+    "refreshrate": 600,
+    "workers": {
+        "cacher": true
+    },
+    "signature": {
+        "author": "Made by Robert J. Kratz",
+        "sponsor": "Powered by rjks.us"
+    },
+    "api": {
+        "SCHOOL": "FCG-Duesseldorf",
+        "HOST": "ajax.webuntis.com",
+        "USER": "KratzRobert",
+        "PASSWORD": "P@ssword1"
+    },
+    "mongo": {
+        "USERNAME": "root",
+        "PASSWORD": "EOXsGKQeqafKCb4X"
+    },
+    "keys": {
+        "JWT": "PRIVATE-JWT-KEY"
+    },
+    "rest": {
+        "subjects": {
+            "alwayssubscibed": ["NST"],
+            "ignoreclasses": []
+        }
+    }
+}

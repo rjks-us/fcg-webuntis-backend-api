@@ -1,0 +1,32 @@
+{
+  "name": "fcg-webuntis-backend-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backend": "nodemon ./backend/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjks-us/fcg-webuntis-backend-api.git"
+  },
+  "keywords": [],
+  "author": "Robert J. Kratz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rjks-us/fcg-webuntis-backend-api/issues"
+  },
+  "homepage": "https://github.com/rjks-us/fcg-webuntis-backend-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.1.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.14",
+    "path": "^0.12.7",
+    "webuntis": "^1.15.0"
+  }
+}
