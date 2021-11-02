@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="331" height="331" viewBox="0 0 331 331">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fcfcfc;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        filter: url(#Rechteck_85);
+      }
+
+      .cls-5 {
+        filter: url(#Rechteck_84);
+      }
+
+      .cls-6 {
+        filter: url(#Rechteck_83);
+      }
+
+      .cls-7 {
+        filter: url(#Rechteck_82);
+      }
+    </style>
+    <filter id="Rechteck_82" x="0" y="0" width="331" height="331" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="12.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="2.043" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#577eff"/>
+      <stop offset="1" stop-color="#2c3f80"/>
+    </linearGradient>
+    <filter id="Rechteck_83" x="84.5" y="145.5" width="162" height="52" filterUnits="userSpaceOnUse">
+      <feOffset dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_84" x="84.5" y="95.5" width="162" height="52" filterUnits="userSpaceOnUse">
+      <feOffset dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rechteck_85" x="84.5" y="195.5" width="162" height="52" filterUnits="userSpaceOnUse">
+      <feOffset dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur-4"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Gruppe_5" data-name="Gruppe 5" transform="translate(-1191.5 -671.5)">
+    <g class="cls-7" transform="matrix(1, 0, 0, 1, 1191.5, 671.5)">
+      <rect id="Rechteck_82-2" data-name="Rechteck 82" class="cls-1" width="256" height="256" rx="50" transform="translate(37.5 37.5)"/>
+    </g>
+    <g id="Gruppe_6" data-name="Gruppe 6">
+      <g class="cls-6" transform="matrix(1, 0, 0, 1, 1191.5, 671.5)">
+        <path id="Rechteck_83-2" data-name="Rechteck 83" class="cls-2" d="M40,0H150a0,0,0,0,1,0,0V0a40,40,0,0,1-40,40H0a0,0,0,0,1,0,0v0A40,40,0,0,1,40,0Z" transform="translate(90.5 145.5)"/>
+      </g>
+      <g class="cls-5" transform="matrix(1, 0, 0, 1, 1191.5, 671.5)">
+        <path id="Rechteck_84-2" data-name="Rechteck 84" class="cls-2" d="M0,0H110a40,40,0,0,1,40,40v0a0,0,0,0,1,0,0H40A40,40,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(90.5 95.5)"/>
+      </g>
+      <g class="cls-4" transform="matrix(1, 0, 0, 1, 1191.5, 671.5)">
+        <path id="Rechteck_85-2" data-name="Rechteck 85" class="cls-2" d="M0,0H110a40,40,0,0,1,40,40v0a0,0,0,0,1,0,0H40A40,40,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(90.5 195.5)"/>
+      </g>
+    </g>
+    <circle id="Ellipse_21" data-name="Ellipse 21" class="cls-3" cx="8.5" cy="8.5" r="8.5" transform="translate(1401 883)"/>
+  </g>
+</svg>
