@@ -1,0 +1,268 @@
+body {
+    --bg-primary: #fff;
+    --bg-secondary: #bebebe;
+
+    --text-primary: #000;
+
+    --blue-primary: #4E71E7;
+    --blue-secondary: #4166BC;
+
+    --alert-box: #0d0d0d;
+}
+
+body.dark-theme {
+    --bg-primary: #110E23;
+    --bg-secondary: #241F41;
+
+    --text-primary: #fff;
+
+    --alert-box: #06031b;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --bg-primary: #110E23;
+        --bg-secondary: #1e1936;
+    
+        --text-primary: #fff;
+
+        --alert-box: #0d0d0d;
+    }
+    body.light-theme {
+        --bg-primary: #fff;
+        --bg-secondary: #bebebe;
+    
+        --text-primary: #000;
+
+        --alert-box: #06031b;
+    }
+}
+
+/*MOBILE*/
+@media only screen and (max-width: 935px) {
+    .desktop {
+        display: none;
+    }
+}
+
+/*MOBILE*/
+@media only screen and (min-width: 934px) {
+    .mobile {
+        display: none;
+    }
+}
+
+* {
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.alert {
+    width: 100%;
+    background-color: var(--alert-box);
+    padding: 5px 0 5px 0;
+}
+
+.alert p {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+.alert a {
+    color: var(--blue-primary);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-primary);
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%);
+    min-height: 100vh;
+    scroll-behavior: smooth;
+}
+
+.desktop, .mobile {
+    margin: 0px 10vw 0 10vw;
+}
+
+.desktop .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.desktop .header .logo, .mobile .header .logo {
+    display: flex;
+    justify-self: center;
+}
+
+.desktop .header .logo a, .mobile .header .logo a {
+    color: var(--text-primary);
+    margin-top: 70px;
+    font-size: 20px;
+}
+
+.desktop .header .options ul {
+   list-style-type: none;
+   margin-top: 70px;
+}
+
+.desktop .options li, .desktop .options li div {
+    display: inline;
+    margin-left: 20px;
+    font-size: 20px;
+    color: var(--text-primary);
+}
+
+.desktop .options a {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.desktop .landing {
+    display: flex;
+    justify-content: center;
+}
+
+.desktop .landing h1, .mobile .landing h1 {
+    text-align: right;
+    font-weight: 500;
+    margin-top: 100px;
+    font-size: 42px;
+    color: var(--text-primary);
+}
+
+.landing h1 > span {
+    color: var(--blue-primary);
+}
+
+.desktop .landing .link {
+    display: flex;
+    justify-content: left;
+}
+
+.desktop .landing .link a img {
+    height: 50px;
+    text-align: center;
+    margin: 0 0 0 10px;
+}
+
+.footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.footer a {
+    text-decoration: none;
+    opacity: 0.8;
+    color: var(--text-primary);
+}
+
+/*
+MOBILE
+*/
+
+.mobile .logo {
+    justify-content: left;
+}
+
+.mobile .logo a {
+    margin-top: 30px;
+}
+
+.mobile .landing div {
+    text-align: center;
+}
+
+.mobile .landing img {
+    height: 300px;
+}
+
+.mobile .landing h1 {
+    margin-top: 10px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.mobile .link {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.mobile .link img {
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+.mobile .landing  {
+    display: flex;
+    flex-direction: column;
+    /* align-content: flex-end; */
+    align-items: center;
+}
+
+.btn {
+    background: var(--blue-primary);
+    background: linear-gradient(180deg,  var(--blue-primary) 0%,  var(--blue-secondary) 100%);
+    border-radius: 15px;
+    padding: 12px;
+    max-width: 170px;
+}
+
+.btn span {
+    padding: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+
+.btn:hover {
+    -webkit-box-shadow: 0px 10px 13px -7px #000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000, 5px 5px 15px 5px rgba(0,0,0,0);
+    animation-duration: 0.3s inherit;
+}
+
+.underline {
+    color: inherit;
+	text-decoration: none;
+    display: block;
+	position: relative;
+    overflow: hidden;
+	padding: 0.2em 0;
+}
+
+/* Fade in */
+.underline::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 25%;
+	height: 0.1em;
+	background-color: var(--text-primary);
+	opacity: 0;
+	transition: opacity 300ms, transform 300ms;
+}
+
+.underline:hover::after,
+.underline:focus::after {
+	opacity: 1;
+	transform: translate3d(0, 0.2em, 0);
+}
+
+.underline::after {
+	opacity: 1;
+	transform: translate3d(-100%, 0, 0);
+}
+
+.underline:hover::after,
+.underline:focus::after {
+	transform: translate3d(0, 0, 0);
+}
