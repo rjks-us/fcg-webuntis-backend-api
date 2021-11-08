@@ -266,3 +266,43 @@ MOBILE
 .underline:focus::after {
 	transform: translate3d(0, 0, 0);
 }
+
+
+/**
+    404 Page
+*/
+
+.alert-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert-container > .child {
+    width: 520px;
+    height: 423px;
+    background-color: var(--semi-light);
+    text-align: center;
+}
+
+.alert-container > .child > img {
+    margin-top: 50px;
+    height: 100px;
+}
+
+.alert-container > .child > h1 {
+    font-size: 38px;
+    margin: 10px 0px 7px 0px;
+    color: var(--dark);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.alert-container > .child > .back-button, 
+.alert-container > .child > .back-button > a {
+    padding: 10px;
+    opacity: 0.5;
+    text-decoration: none;
+    color: var(--dark);
+    font-family: 'Open Sans', sans-serif;
+}
