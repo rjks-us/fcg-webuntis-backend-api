@@ -1,0 +1,38 @@
+{
+    "CLASS_CHANGED_TO_CANCELED": {
+        "id": 0,
+        "description": "The state of a subscribed class has changed from CLASS to CANCELED"
+    },
+    "CLASS_CHANGED_TO_INFO": {
+        "id": 1,
+        "description": "The state of a subscribed class has changed from CLASS to INFO"
+    },
+    "CANCELED_CHANGED_TO_INFO": {
+        "id": 2,
+        "description": "The state of a subscribed class has changed from CANCELED to INFO"
+    },
+    "CANCELED_CHANGED_TO_CLASS": {
+        "id": 3,
+        "description": "The state of a subscribed class has changed from CANCELED to CLASS"
+    },
+    "INFO_CHANGED_TO_CLASS": {
+        "id": 4,
+        "description": "The state of a subscribed class has changed from INFO to CLASS"
+    },
+    "INFO_CHANGED_TO_CANCELED": {
+        "id": 5,
+        "description": "The state of a subscribed class has changed from INFO to CANCELED"
+    },
+    "CUSTOM_NOTIFICATION": {
+        "id": 6,
+        "description": "A custom notification which was provided by an admin"
+    },
+    "HOLIDAY_NOTICE": {
+        "id": 7,
+        "description": "Something relevant which is relevant to the timetable"
+    },
+    "ARTICLE_ALERT": {
+        "id": 8,
+        "description": "A new post provided in the app has been released"
+    }
+}
