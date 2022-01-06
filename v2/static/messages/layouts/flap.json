@@ -1,0 +1,34 @@
+{
+    "name": "flap-design",
+    "description": "The Flap-Design",
+    "author": "Robert J. Kratz",
+    "components": [
+        {
+            "id": "heroimg",
+            "type": "IMAGE"
+        },
+        {
+            "id": "title",
+            "type": "TEXT"
+        },
+        {
+            "id": "subtitle",
+            "type": "TEXT"
+        },
+        {
+            "id": "primarybutton",
+            "type": "BUTTON",
+            "data": {
+                "action": "OPEN_LINK",
+                "content": "https://link.rjks.us/"
+            }
+        },
+        {
+            "id": "primarybutton",
+            "type": "BUTTON",
+            "data": {
+                "action": "CLOSE_MESSAGE"
+            }
+        }
+    ]
+}

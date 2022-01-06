@@ -1,0 +1,39 @@
+{
+    "name": "hero-design",
+    "description": "The Hero-Design",
+    "author": "Robert J. Kratz",
+    "components": [
+        {
+            "id": "heroimg",
+            "type": "IMAGE",
+            "required": true
+        },
+        {
+            "id": "title",
+            "type": "TEXT",
+            "required": true
+        },
+        {
+            "id": "subtitle",
+            "type": "TEXT",
+            "required": true
+        },
+        {
+            "id": "primarybutton",
+            "type": "BUTTON",
+            "required": false,
+            "data": {
+                "action": "OPEN_LINK",
+                "content": "https://link.rjks.us/"
+            }
+        },
+        {
+            "id": "primarybutton",
+            "type": "BUTTON",
+            "required": false,
+            "data": {
+                "action": "CLOSE_MESSAGE"
+            }
+        }
+    ]
+}

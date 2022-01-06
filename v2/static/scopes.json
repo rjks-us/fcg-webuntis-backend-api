@@ -1,0 +1,76 @@
+{
+    "scopes": [
+        {
+            "name": "ADMINISTRATOR",
+            "id": 1,
+            "description": "administrator role",
+            "inherit": [3, 4, 5, 6, 7, 8, 41, 91, 11]
+        },
+        {
+            "name": "TEACHER",
+            "id": 2,
+            "description": "teacher role",
+            "inherit": [4, 5, 6]
+        },
+        {
+            "name": "CUSTOM",
+            "id": 31,
+            "description": "custom role",
+            "inherit": []
+        },
+        {
+            "name": "CREATE_USER_PROFILES",
+            "id": 11,
+            "description": "Create user profiles",
+            "inherit": []
+        },
+        {
+            "name": "MANIPULATE",
+            "id": 3,
+            "description": "Manipulate timetable entrys",
+            "inherit": []
+        },
+        {
+            "name": "MESSAGES",
+            "id": 4,
+            "description": "Add messages of the day, which will be displayed in the app",
+            "inherit": []
+        },
+        {
+            "name": "MESSAGES_DELETE",
+            "id": 41,
+            "description": "Delete messages of the day",
+            "inherit": []
+        },
+        {
+            "name": "INFORMATION",
+            "id": 5,
+            "description": "Access statistics",
+            "inherit": []
+        },
+        {
+            "name": "PUSHNOTIFICATIONS",
+            "id": 6,
+            "description": "Send pushnotifications to groups or spesific devices",
+            "inherit": []
+        },
+        {
+            "name": "DEVICES",
+            "id": 7,
+            "description": "Can access all registered devices",
+            "inherit": []
+        },
+        {
+            "name": "USER",
+            "id": 8,
+            "description": "Can access all registered admin users",
+            "inherit": []
+        },
+        {
+            "name": "ADMIN_USER_ADVANCED_INFORMATION",
+            "id": 91,
+            "description": "Get user email and access informations",
+            "inherit": []
+        }
+    ]
+}
