@@ -20,6 +20,18 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get('/privacy', (req, res) => {
+    fs.readFile('./page/privacy.html', 'utf8', (err, data) => {
+        res.send(data);
+    })
+})
+
+app.get('/imprint', (req, res) => {
+    fs.readFile('./page/imprint.html', 'utf8', (err, data) => {
+        res.send(data);
+    })
+})
+
 app.get('*', (req, res) => {
     fs.readFile('./page/404.html', 'utf8', (err, data) => {
         res.send(data);
