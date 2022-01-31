@@ -130,7 +130,7 @@ const getTimeGrid = async () => {
     for (let i = 0; i < grid.length; i++) {
         list.push({
             day: i,
-            mame: week[i],
+            name: week[i],
             time: grid[i].timeUnits
         })
     }
@@ -152,9 +152,11 @@ const getTimeTableWithFilter = async (id, date, filter) => {
     try {
         const timetable = await authenticated.getTimetableFor(date, id, WebUntisLib.TYPES.CLASS), list = [];
 
+        var changes = await manipulizer.findBulkEntrys({class: parseInt(id)});
+
         await timetable.forEach(async element => {
             if(filter.includes(element.su[0].id)) {
-                var tmp = await formatTimeTableObject(element);
+                var tmp = await formatTimeTableObject(element, changes);
                 //if(manipulize.findEntry({rayid: tmp.rayid})) tmp = manip.manipulize(tmp, manipulize.CANCELED, ''); //<-- Do not touch
 
                 list.push(tmp);

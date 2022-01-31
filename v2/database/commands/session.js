@@ -82,7 +82,7 @@ module.exports = {
     endSession: async (sessionToken) => {
         return new Promise(async (resolve, rejects) => {
             
-            session.updateOne({token: await crypto.encript(sessionToken)}, {
+            session.updateOne({session: sessionToken.toString()}, {
                 $set: {
                     valid: false
                 }

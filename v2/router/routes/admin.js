@@ -30,6 +30,7 @@ const authorize = async (req, res, next) => {
             req.id = user._id;
             req.scopes = user.scopes;
             req.name = user.name;
+            req.token = token;
 
             await adminManagement.logRequest(user.id, req).then(() => next());
 
@@ -72,18 +73,29 @@ app.post('/login', async (req, res) => {
     if(!body || !body.username || !body.password) return res.status(400).json(result(400, 'Bad request'));
 
     var user = await adminManagement.findUser({name: body.username});
-    if(!user) return res.status(401).json(result(400, 'Wrong credentials'));
+    if(!user) return res.status(401).json(result(400, 'Wrong credentials 1'));
 
     var password = await crypto.check(body.password, user.password);
 
-    if(!password) return res.status(401).json(result(400, 'Wrong credentials'));
+    if(!password) return res.status(401).json(result(400, 'Wrong credentials 2'));
 
     const token = await sessionManagement.createSession(user._id.toString(), {});
 
-    res.status(200).json(result(200, 'Authenticated', [{token: token, type: 'Bearer', expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 180)},]));
+    console.log(user);
+
+    res.status(200).json(result(200, 'Authenticated', {token: token, type: 'Bearer', expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 180), scopes: user.scopes},));
 
     await adminManagement.logRequest(user._id, req);
 });
+
+app.post('/logout', authorize, async (req, res) => {
+    
+    const success = await sessionManagement.endSession(req.token);
+
+    if(!success) return res.status(401).json(result(404, 'Your session is invalid'));
+
+    return res.status(200).json(result(404, 'Your session token is now expired'));
+})
 
 app.get('/me', authorize, async (req, res) => {
     const user = await adminManagement.findUser({'_id': mongoDB.ObjectId(req.id)});
@@ -159,7 +171,10 @@ app.post('/update/scope', authorize, async (req, res) => {
 app.post('/manipulize', authorize, async (req, res) => {
     if(!scope.hasScope(req.scopes, 3)) return res.status(401).json(result(401, 'You are lacking the permission 3'))
     
+
     const body = req.body;
+
+    console.log(body);
 
     if(!body || !body.rayid || !body.class || !body.course) return res.status(400).json(result(400, 'Bad request'));
 
@@ -245,7 +260,106 @@ app.post('/pushNotification/all', authorize, async (req, res) => {
                 amount++;
             }
         }
-        return res.status(200).json(result(200, amount + ' recived the notification'));
+        return res.status(200).json(result(200, amount + ' devices recived the notification'));
+    } catch (error) {
+        console.log(error);
+        return res.status(501).json(result(501, 'An error occoured'))
+    }
+});
+
+app.post('/pushNotification/class', authorize, async (req, res) => {
+    if(!scope.hasScope(req.scopes, 6)) return res.status(401).json(result(401, 'You are lacking the permission 6'))
+
+    const body = req.body;
+
+    if(!body || !body.target || !body.message || !body.title) return res.status(400).json(result(400, 'Bad request'));
+
+    try {
+        const device = await deviceManagement.findBulkUser({class: body.target});
+
+        if(!device) return res.status(404).json(result(401, 'The provided user does not exist'));
+
+        var amount = 0;
+
+        for (let i = 0; i < device.length; i++) {
+            const element = device[i];
+
+            const pushNotificationToken = await deviceManagement.getMostRecentFirebasePushNotificationKey({_id: mongoDB.ObjectId(element._id)});
+
+            if(pushNotificationToken) {
+                const notif = new Notification((body.title).replaceAll('%name%', element.name), (body.message).replaceAll('%name%', element.name));
+
+                await notif.sendSingle(pushNotificationToken.token, mongoDB.ObjectId(element._id), actions.CUSTOM_NOTIFICATION, mongoDB.ObjectId(req.id));
+                amount++;
+            }
+        }
+        return res.status(200).json(result(200, amount + ' devices recived the notification'));
+    } catch (error) {
+        console.log(error);
+        return res.status(501).json(result(501, 'An error occoured'))
+    }
+});
+
+app.post('/pushNotification/subject', authorize, async (req, res) => {
+    if(!scope.hasScope(req.scopes, 6)) return res.status(401).json(result(401, 'You are lacking the permission 6'))
+
+    const body = req.body;
+
+    if(!body || !body.target || !body.message || !body.title) return res.status(400).json(result(400, 'Bad request'));
+
+    try {
+        const device = await deviceManagement.findBulkUser({courses: {$in: [subjects]}});
+
+        if(!device) return res.status(404).json(result(401, 'The provided user does not exist'));
+
+        var amount = 0;
+
+        for (let i = 0; i < device.length; i++) {
+            const element = device[i];
+
+            const pushNotificationToken = await deviceManagement.getMostRecentFirebasePushNotificationKey({_id: mongoDB.ObjectId(element._id)});
+
+            if(pushNotificationToken) {
+                const notif = new Notification((body.title).replaceAll('%name%', element.name), (body.message).replaceAll('%name%', element.name));
+
+                await notif.sendSingle(pushNotificationToken.token, mongoDB.ObjectId(element._id), actions.CUSTOM_NOTIFICATION, mongoDB.ObjectId(req.id));
+                amount++;
+            }
+        }
+        return res.status(200).json(result(200, amount + ' devices recived the notification'));
+    } catch (error) {
+        console.log(error);
+        return res.status(501).json(result(501, 'An error occoured'))
+    }
+});
+
+app.post('/pushNotification/subjects', authorize, async (req, res) => {
+    if(!scope.hasScope(req.scopes, 6)) return res.status(401).json(result(401, 'You are lacking the permission 6'))
+
+    const body = req.body;
+
+    if(!body || !body.target || !body.message || !body.title) return res.status(400).json(result(400, 'Bad request'));
+
+    try {
+        const device = await deviceManagement.findBulkUser({courses: {$in: subjects}});
+
+        if(!device) return res.status(404).json(result(401, 'The provided user does not exist'));
+
+        var amount = 0;
+
+        for (let i = 0; i < device.length; i++) {
+            const element = device[i];
+
+            const pushNotificationToken = await deviceManagement.getMostRecentFirebasePushNotificationKey({_id: mongoDB.ObjectId(element._id)});
+
+            if(pushNotificationToken) {
+                const notif = new Notification((body.title).replaceAll('%name%', element.name), (body.message).replaceAll('%name%', element.name));
+
+                await notif.sendSingle(pushNotificationToken.token, mongoDB.ObjectId(element._id), actions.CUSTOM_NOTIFICATION, mongoDB.ObjectId(req.id));
+                amount++;
+            }
+        }
+        return res.status(200).json(result(200, amount + ' devices recived the notification'));
     } catch (error) {
         console.log(error);
         return res.status(501).json(result(501, 'An error occoured'))

@@ -7,17 +7,20 @@ const {result} = require('../../utils/Structure');
 
 app.get('/classes', async (req, res) => {
     const classes = await utils.classList();
+
+    console.log(classes);
+
     res.status(200).json(result(200, `All active classes`, classes));
 })
 
 app.get('/holidays', async (req, res) => {
-    const classes = await utils.holidays();
-    res.status(200).json(result(200, `List of all ${classes.length} upcoming holidays`, classes));
+    const holidays = await utils.holidays();
+    res.status(200).json(result(200, `List of all ${holidays.length} upcoming holidays`, holidays));
 })
 
 app.get('/timegrid', async (req, res) => {
-    const classes = await utils.getTimeGrid();
-    res.status(200).json(result(200, `Current Timegrid`, classes));
+    const timegrid = await utils.getTimeGrid();
+    res.status(200).json(result(200, `Current Timegrid`, timegrid));
 })
 
 app.get('/subjects/:class', async (req, res) => {
@@ -27,10 +30,10 @@ app.get('/subjects/:class', async (req, res) => {
     
     try {
         const sub = await utils.getAllSubjects(req.params.class, new Date(`${now.getUTCMonth() + 1}.01.${now.getFullYear()}`), new Date(`${now.getUTCMonth() + 1}.29.${now.getFullYear()}`));
-        res.status(200).json(result(200, `List of all ${sub.length} active subjects in the current month (1.${now.getUTCMonth() + 1} - 29.${now.getUTCMonth() + 1})`, sub));
+        res.status(200).json(result(200, `List of all ${sub.length} active subjects in the current month (1.${now.getUTCMonth() + 1} - 29.${now.getUTCMonth() + 1}).29.${now.getFullYear()}`, sub));
     } catch (error) {
         console.log(error);
-        res.status(200).json(result(200, `List of all ${sub.length} active subjects in the current month (1.${now.getUTCMonth() + 1} - 29.${now.getUTCMonth() + 1})`, []));
+        res.status(200).json(result(200, `List of all ${sub.length} active subjects in the current month (1.${now.getUTCMonth() + 1} - 29.${now.getUTCMonth() + 1}).29.${now.getFullYear()}`, []));
     }
 })
 
@@ -68,6 +71,8 @@ app.post('/timetable/filter/:class/:year/:month/:day', async (req, res) => {
 
     try {
         if(req.body.filter.length == 0) return res.status(200).json(result(200, `List of all subjects`, []));
+
+        console.log(new Date(req.params.month + '/' + req.params.day + '/' + req.params.year));
 
         const timetable = await utils.getTimeTableWithFilter(req.params.class, new Date(req.params.month + '/' + req.params.day + '/' + req.params.year), req.body.filter);
 

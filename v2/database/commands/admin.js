@@ -1,6 +1,7 @@
 const mongoDB = require('mongodb');
 
 const admin = require('../schematics/Admin');
+const { findOne } = require('../schematics/Notification');
 
 module.exports = {
     /**
@@ -11,7 +12,7 @@ module.exports = {
      */
     createUserProfile: async (usermodel) => {
         return new Promise(async (resolve, rejects) => {
-            admin.insertOne(await admin.format(usermodel))
+            admin.insertOne(await admin.format(usermodel, true))
             .then((result) => resolve(result))
             .catch((error) => rejects(error));
         });
@@ -105,13 +106,13 @@ module.exports = {
     createDefaultRootUser: async () => {
         const root = require('../../static/defaultuser.json').default;
     
-        if(!userProfileExists({email: root.email})) return;
+        if(!findOne({email: root.email})) return;
     
         root.iat = Date.now();
         root.access = [];
     
         try {
-            await createUserProfile(root);
+            await admin.insertOne(await admin.format(root, true));
             return true;
         } catch (error) {
             console.error(error);

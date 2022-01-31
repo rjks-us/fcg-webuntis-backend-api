@@ -145,6 +145,9 @@ module.exports = {
             device: object.device,
             courses: object.courses,
             class: object.class,
+            settings: {
+                notifications: (object.notifications != undefined)
+            },
             push: [],
             iat: Date.now(),
             disabled: false,

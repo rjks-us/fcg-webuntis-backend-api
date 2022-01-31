@@ -15,21 +15,28 @@ const device = require('../../database/commands/device');
 
 const authorize = (req, res, next) => {
     if(!req.headers.authorization) return res.status(401).json(result(401, 'The provided authentication credentials are not valid 1', []));
-    
+
     token.checkRequest((req.headers.authorization).split(' ')[1])
         .then(async (re) => {
             const id = re.data.id;
+            console.log(id);
+
 
             if(!await deviceManagement.userProfileExists({_id: mongoDB.ObjectId(id)}) || re.data.type === 'R') return res.status(401).json(result(401, 'The provided authentication credentials are not valid 2', []));
 
-            req.id = id;
+            console.log('1');
 
+            req.id = id;
             if(await deviceManagement.findUser({_id: mongoDB.ObjectId(req.id), disabled: true})) return res.status(404).json(result(404, 'Your device has been disabled'));
+            console.log('2');
 
             await deviceManagement.logRequest({_id: mongoDB.ObjectId(id)}, req);
+            console.log('3');
+
             next()
         })
         .catch((error) => {
+            console.log(3);
             console.log(error);
             return res.status(401).json(result(401, 'The provided authentication credentials are not valid 3', []));
         })
@@ -54,6 +61,9 @@ app.get('/me/disable', authorize, async (req, res) => {
 });
 
 app.post('/create-device', async (req, res) => {
+
+    console.log(req.body);
+
     if(!req.body.name || !req.body.push || !req.body.platform || !req.body.device || !req.body.courses || !req.body.class || !req.body.courses instanceof Array) return res.status(400).json(result(400, 'The request is invalid'));
     
     const device = await deviceManagement.createUserDevice(req.body);
@@ -74,11 +84,11 @@ app.post('/delete', authorize, async (req, res) => {
 app.post('/refresh', async (req, res) => {
     if(!req.body.token || !req.body.refresh) return res.status(400).json(result(400, 'The request is invalid'));
 
-    await token.verifyReset(req.body.token, req.body.refresh).catch((err) => {
-        return res.status(400).json(result(400, 'The provided authentication credentials are not valid'));
-    }).then((newtoken) => {
+    await token.verifyReset(req.body.token, req.body.refresh).then((newtoken) => {
         return res.status(200).json(result(200, `Your identity has been approved, a new token family was created`, newtoken));
-    })
+    }).catch((err) => {
+        return res.status(400).json(result(400, err));
+    });
 });
 
 app.post('/update/course', authorize, async (req, res) => {
@@ -133,9 +143,9 @@ app.post('/update/name', authorize, async (req, res) => {
 
 app.get('/notifications', authorize, async (req, res) => {
 
-    const notifications = await notificationManagement.findBulkNotification({identifier: mongoDB.ObjectId('61d62be2bb26db1d9821c864')});
-
     var tmpNotificationRemodelingCollection = [];
+
+    const notifications = await notificationManagement.findBulkNotification({identifier: mongoDB.ObjectId(req.id)});
 
     for (let i = 0; i < notifications.length; i++) {
         const element = notifications[i];

@@ -18,6 +18,7 @@ const generateToken = async (id, type) => {
  * @returns Promise<any>
  */
 const checkRequest = async (token) => {
+    console.log(token);
     return new Promise((resolve, rejects) => {
         jwt.verify(token, config.keys.JWT, (err, decode) => {
             if(err || !decode) rejects();
@@ -33,14 +34,21 @@ const checkRequest = async (token) => {
  * @returns Promise<JSON>
  */
 const verifyReset = async (token, reset) => {
+
     return new Promise((resolve, rejects) => {
-        jwt.verify(token, config.keys.JWT, async (et, dt) => {
-            jwt.verify(reset, config.keys.JWT, async (err, dr) => {
-                if(et && dr) return resolve({
-                    reset: await new Token(dr.data.id).setType('R').generate(),
-                    token: await new Token(dr.data.id).setType('T').generate()
+        jwt.verify(token, config.keys.JWT, async (errorToken, decodeToken) => {
+
+            if(!errorToken) return rejects('The token is invalid');
+            if(decodeToken) return rejects('The token is still valid, a refresh is not nessesary');
+
+            jwt.verify(reset, config.keys.JWT, async (errorRefreshToken, decodeRefreshToken) => {
+                
+                if(errorRefreshToken) rejects('Refresh token is invalid');
+
+                if(errorToken && decodeRefreshToken) return resolve({
+                    reset: await new Token(decodeRefreshToken.data.id).setType('R').generate(),
+                    token: await new Token(decodeRefreshToken.data.id).setType('T').generate()
                 });
-                rejects(); //<-- Unauthorized
             })
         })
     })

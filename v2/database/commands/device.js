@@ -184,9 +184,9 @@ module.exports = {
      * @async
      * @returns Promise<any>
      */
-    getDevicesWhichHaveSubscribedToProvidedSubjects: async (subjects) => {
+    getDevicesWhichHaveSubscribedToProvidedSubjects: async (subjects, classId) => {
         return new Promise(async (resolve, rejects) => {
-            await device.findMany({courses: {$in: subjects}, disabled: false}).then((result) => {
+            await device.findMany({courses: {$in: subjects}, disabled: false, class: classId}).then((result) => {
                 resolve(result);
             })
             .catch((error) => rejects(error));
