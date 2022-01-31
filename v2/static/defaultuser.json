@@ -3,6 +3,7 @@
         "name": "root",
         "email": "root@root",
         "scopes": [1],
+        "title": "Administration",
         "password": "ROOT-PASSWORD"
     }
 }
