@@ -33,7 +33,7 @@ const login = async () => {
         mb.connect((err, db) => {
             if(err) return rejects(err); 
 
-            _db = db.db('_devices');
+            _db = db.db('_test_devices');
 
             const tables = fs.readdirSync(__dirname + '/schematics').filter(file => file.toString().endsWith('.js'));
 
